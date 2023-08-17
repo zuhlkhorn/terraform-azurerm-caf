@@ -14,7 +14,7 @@ data "external" "express_route_circuit_peering_id" {
 resource "azurerm_express_route_connection" "erc" {
   name                             = var.settings.name
   express_route_gateway_id         = var.express_route_gateway_id
-  express_route_circuit_peering_id = var.express_route_circuit_peering_id
+  express_route_circuit_peering_id = try(var.express_route_circuit_peering_id, data.external.express_route_circuit_peering_id)
 
   # Optional
   authorization_key        = var.authorization_key

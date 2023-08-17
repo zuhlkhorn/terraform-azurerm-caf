@@ -3,6 +3,9 @@ variable "settings" {}
 variable "virtual_hub_route_tables" {
   default = {}
 }
+variable "express_route_circuits" {
+  default = {}
+}
 variable "authorization_key" {
   default = null
 }
