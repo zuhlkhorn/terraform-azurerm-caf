@@ -5,6 +5,7 @@ module "express_route_connections" {
   client_config            = local.client_config
   settings                 = each.value
   virtual_hub_route_tables = local.combined_objects_virtual_hub_route_tables
+  express_route_circuits   = local.combined_objects_express_route_circuits
 
   virtual_hub_id = coalesce(
     try(local.combined_objects_virtual_hubs[each.value.virtual_hub.lz_key][each.value.virtual_hub.key].id, null),
