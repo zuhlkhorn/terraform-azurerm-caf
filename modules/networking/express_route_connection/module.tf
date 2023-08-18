@@ -6,7 +6,7 @@ data "external" "express_route_circuit_peering_id" {
       "az network express-route peering list -resource_group '%s' --circuit-name '%s' --query '[?vlanId==`'%d'`].id' --output tsv",
       local.express_route_circuit.resource_group_name,
       local.express_route_circuit.name,
-      var.settings.express_route_circuit.vlan_id
+      var.settings.circuit_peering.vlan_id
     )
   ]
 }
