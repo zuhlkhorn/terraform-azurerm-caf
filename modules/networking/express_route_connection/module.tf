@@ -2,11 +2,8 @@ data "external" "express_route_circuit_peering_id" {
   count = try(var.express_route_circuit_peering_id, null) == null ? 1 : 0
   program = [
     "bash", "-c",
-    format("echo '%s'", var.settings.circuit.lz_key),
-    format("echo '%s'", var.express_route_circuits[var.settings.circuit.lz_key]),
-    format("echo '%s'", var.express_route_circuits[var.settings.circuit.lz_key][var.settings.circuit.key].resource_group_name),
     format(
-      "az network express-route peering list --resource_group '%s' --circuit-name '%s' --query '[?vlanId==`%d`].id' --output tsv",
+      "az network express-route peering list --resource-group '%s' --circuit-name '%s' --query '[?vlanId==`%d`].id' --output tsv",
       local.express_route_circuit.resource_group_name,
       local.express_route_circuit.name,
       var.settings.circuit_peering.vlan_id
@@ -17,7 +14,11 @@ data "external" "express_route_circuit_peering_id" {
 resource "azurerm_express_route_connection" "erc" {
   name                             = var.settings.name
   express_route_gateway_id         = var.express_route_gateway_id
-  express_route_circuit_peering_id = try(var.express_route_circuit_peering_id, data.external.express_route_circuit_peering_id)
+  express_route_circuit_peering_id = try(coalesce(
+    try(var.express_route_circuit_peering_id, ""),
+    try(var.settings.express_route_circuit_peering_id, "")
+    try(data.external.express_route_circuit_peering_id, "")
+  ), null)
 
   # Optional
   authorization_key        = var.authorization_key
