@@ -2,8 +2,9 @@ data "external" "express_route_circuit_peering_id" {
   count = try(var.express_route_circuit_peering_id, null) == null ? 1 : 0
   program = [
     "bash", "-c",
-    format("echo '%s'", var.express_route_circuits),
-    format("echo '%s'", var.express_route_circuits[var.settings.circuit.key]),
+    format("echo '%s'", var.settings.circuit.lz_key),
+    format("echo '%s'", var.express_route_circuits[var.settings.circuit.lz_key]),
+    format("echo '%s'", var.express_route_circuits[var.settings.circuit.lz_key][var.settings.circuit.key].resource_group_name),
     format(
       "az network express-route peering list --resource_group '%s' --circuit-name '%s' --query '[?vlanId==`%d`].id' --output tsv",
       local.express_route_circuit.resource_group_name,
