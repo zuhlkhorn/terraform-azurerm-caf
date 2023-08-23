@@ -44,7 +44,7 @@ resource "azurerm_express_route_connection" "erc" {
 locals {
   express_route_circuit = {
     name = try(var.express_route_circuits[var.settings.circuit.lz_key][var.settings.circuit.key].name, ""),
-    resource_group_name = try(var.express_route_circuits[var.settings.circuit.lz_key][var.settings.circuit.key].resource_group_name, ""),
+    resource_group_name = try(var.express_route_circuits[var.settings.circuit.key].resource_group_name, ""),
   }
 
   associated_route_table = {
