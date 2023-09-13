@@ -25,7 +25,7 @@ resource "azurerm_express_route_connection" "erc" {
     for_each = can(var.settings.routing) ? [1] : []
 
     content {
-      associated_route_table_id = local.associated_route_table
+      associated_route_table_id = local.associated_route_table.id
 
       dynamic "propagated_route_table" {
         for_each = can(var.settings.routing.propagated_route_table) ? [1] : []
