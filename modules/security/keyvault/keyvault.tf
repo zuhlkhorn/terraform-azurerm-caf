@@ -26,7 +26,7 @@ resource "azurerm_key_vault" "keyvault" {
   enabled_for_disk_encryption     = try(var.settings.enabled_for_disk_encryption, false)
   enabled_for_template_deployment = try(var.settings.enabled_for_template_deployment, false)
   purge_protection_enabled        = try(var.settings.purge_protection_enabled, false)
-  soft_delete_retention_days      = try(var.settings.soft_delete_retention_days, 7)
+  soft_delete_retention_days      = try(var.settings.soft_delete_retention_days, 30)
   enable_rbac_authorization       = try(var.settings.enable_rbac_authorization, false)
   timeouts {
     delete = "60m"
