@@ -23,8 +23,8 @@ variable "linked_data_collection_endpoint_id" {
 }
 variable "vnets" {}
 variable "virtual_subnets" {}
-variable "private_endpoint" {
-  description = "The unique private endpoint settings for the centralised monitoring solution"
+variable "private_endpoints" {
+  description = "The private endpoints settings. Usually a single one per region for a centralise monitoring solution."
 }
 variable "resource_groups" {}
 variable "private_dns" {
