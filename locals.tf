@@ -369,7 +369,7 @@ locals {
     automation_software_update_configurations = try(var.shared_services.automation_software_update_configurations, {})
     consumption_budgets                       = try(var.shared_services.consumption_budgets, {})
     data_collection_endpoints                 = try(var.shared_services.data_collection_endpoints, {})
-    data_collection_rules                     = try(var.shared_services.data_collection_rules, {})
+    # data_collection_rules                     = try(var.shared_services.data_collection_rules, {})
     image_definitions                         = try(var.shared_services.image_definitions, {})
     log_analytics_storage_insights            = try(var.shared_services.log_analytics_storage_insights, {})
     monitor_autoscale_settings                = try(var.shared_services.monitor_autoscale_settings, {})
