@@ -69,7 +69,7 @@ module "monitor_private_link_scope" {
   settings                           = each.value
   base_tags                          = try(local.global_settings.inherit_tags, false) ? try(local.combined_objects_resource_groups[try(each.value.resource_group.lz_key, local.client_config.landingzone_key)][try(each.value.resource_group.key, each.value.resource_group_key)].tags, {}) : {}
   resource_group_name                = can(each.value.resource_group.name) || can(each.value.resource_group_name) ? try(each.value.resource_group.name, each.value.resource_group_name) : local.combined_objects_resource_groups[try(each.value.resource_group.lz_key, local.client_config.landingzone_key)][try(each.value.resource_group_key, each.value.resource_group.key)].name
-  linked_log_analytics_id            = try(each.value.log_analytics_id, local.combined_diagnostics.log_analytics[try(each.value.resource_group.lz_key, local.client_config.landingzone_key)][try(each.value.log_analytics_key, each.value.log_analytics.key)].id)
+  linked_log_analytics_id            = try(each.value.log_analytics_id, local.combined_diagnostics.log_analytics[try(each.value.log_analytics_key, each.value.log_analytics.key)].id)
   linked_data_collection_endpoint_id = try(each.value.data_collection_endpoint_id, local.combined_objects_data_collection_endpoints[try(each.value.resource_group.lz_key, local.client_config.landingzone_key)][try(each.value.data_collection_endpoint_key, each.value.data_collection_endpoint.key)].id)
   vnets                              = local.combined_objects_networking
   virtual_subnets                    = local.combined_objects_virtual_subnets
