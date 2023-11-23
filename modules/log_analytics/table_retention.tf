@@ -2,7 +2,7 @@ resource "terraform_data" "update_log_analytics_workspace_tables" {
   for_each = var.tables
 
   triggers_replace = [
-    each.value.key,
+    each.key,
     each.value.name,
     each.value.retention_in_days,
     each.value.total_retention_in_days
