@@ -28,8 +28,9 @@ resource "azurerm_consumption_budget_subscription" "this" {
     for_each = var.settings.notifications
 
     content {
-      operator  = notification.value.operator
-      threshold = notification.value.threshold
+      operator       = notification.value.operator
+      threshold      = notification.value.threshold
+      threshold_type = try(notification.value.threshold_type, "Actual")
 
       contact_emails = try(notification.value.contact_emails, [])
       contact_groups = try(notification.value.contact_groups, try(flatten([
