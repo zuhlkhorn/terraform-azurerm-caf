@@ -19,5 +19,11 @@
         "MD025": {
             "front_matter_title": ""
         }
-    }
+    },
+    "terminal.integrated.env.windows": {
+        "PATH": "C:\\Users\\dalo\\.azurelogicapps\\dependencies\\DotNetSDK;${env:PATH}"
+    },
+    "omnisharp.dotNetCliPaths": [
+        "C:\\Users\\dalo\\.azurelogicapps\\dependencies\\DotNetSDK"
+    ]
 }
