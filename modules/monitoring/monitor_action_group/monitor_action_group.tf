@@ -36,6 +36,17 @@ resource "azurerm_monitor_action_group" "this" {
     }
   }
 
+  dynamic "azure_function_receiver" {
+    for_each = try(var.settings.azure_function_receiver, {})
+    content {
+      name                     = azure_function_receiver.value.name
+      function_app_resource_id = azure_function_receiver.value.function_app_resource_id
+      function_name            = azure_function_receiver.value.function_name
+      http_trigger_url         = azure_function_receiver.value.http_trigger_url
+      use_common_alert_schema  = try(azure_function_receiver.value.use_common_alert_schema, false)
+    }
+  }
+
   dynamic "azure_app_push_receiver" {
     for_each = try(var.settings.azure_app_push_receiver, {})
     content {
