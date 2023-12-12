@@ -1,7 +1,6 @@
 #
 # Process membership for var.azuread_groups_membership
 #
-
 module "azuread_service_principals_membership" {
   source   = "./membership"
   for_each = try(var.settings.azuread_service_principals, {})
@@ -29,6 +28,15 @@ module "mssql_servers_membership" {
   members       = each.value
 
   group_object_id = var.azuread_groups[try(each.value.group_lz_key, var.client_config.landingzone_key)][var.group_key].id
+}
+
+module "azuread_groups_groups_membership" {
+  source   = "./membership"
+  for_each = try(var.settings.azuread_groups, {})
+
+  azuread_groups = var.azuread_groups[try(each.value.lz_key, var.client_config.landingzone_key)]
+  members                    = each.value
+  group_object_id            = var.azuread_groups[try(each.value.group_lz_key, var.client_config.landingzone_key)][var.group_key].id
 }
 
 module "membership_object_id" {

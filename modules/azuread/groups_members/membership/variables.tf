@@ -13,4 +13,7 @@ variable "members" {
 }
 variable "mssql_servers" {
   default = {}
+} 
+variable "azuread_groups" {
+  default = {}
 }

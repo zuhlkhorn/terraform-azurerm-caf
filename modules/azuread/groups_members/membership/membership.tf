@@ -18,3 +18,10 @@ resource "azuread_group_member" "mssql_server_ids" {
   group_object_id  = var.group_object_id
   member_object_id = var.mssql_servers[each.key].rbac_id
 }
+
+resource "azuread_group_member" "azuread_group_ids" {
+  for_each = var.azuread_groups != {} ? toset(try(var.members.keys, [])) : []
+
+  group_object_id  = var.group_object_id
+  member_object_id = var.azuread_groups[each.key].object_id
+}
