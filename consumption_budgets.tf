@@ -39,19 +39,8 @@ module "consumption_budgets_subscriptions" {
 
 module "consumption_budgets_cost_anomaly_alerts" {
   source = "./modules/consumption_budget/cost_anomaly_alert"
-  for_each = {
-    for key, value in local.shared_services.cost_anomaly_alerts : key => value
-    if try(value.subscription, null) != null
-  }
+  for_each = try(local.shared_services.cost_anomaly_alerts, {})
 
-  local_combined_resources = {
-    # Add combined objects that need to be included in the filter
-    aks                   = local.combined_objects_aks_clusters,
-    monitor_action_groups = local.combined_objects_monitor_action_groups,
-    resource_groups       = local.combined_objects_resource_groups,
-    subscriptions         = local.combined_objects_subscriptions,
-    virtual_machines      = local.combined_objects_virtual_machines,
-  }
   client_config   = local.client_config
   global_settings = local.global_settings
   settings        = each.value
