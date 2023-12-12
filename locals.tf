@@ -368,6 +368,7 @@ locals {
     automation_log_analytics_links            = try(var.shared_services.automation_log_analytics_links, {})
     automation_software_update_configurations = try(var.shared_services.automation_software_update_configurations, {})
     consumption_budgets                       = try(var.shared_services.consumption_budgets, {})
+    cost_anomaly_alerts                       = try(var.shared_services.cost_anomaly_alerts, {})
     data_collection_endpoints                 = try(var.shared_services.data_collection_endpoints, {})
     # data_collection_rules                     = try(var.shared_services.data_collection_rules, {})
     image_definitions                         = try(var.shared_services.image_definitions, {})
