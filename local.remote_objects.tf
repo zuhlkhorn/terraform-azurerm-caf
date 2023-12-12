@@ -38,7 +38,7 @@ locals {
     cognitive_services_accounts                    = try(local.combined_objects_cognitive_services_accounts, null)
     consumption_budgets_resource_groups            = try(local.combined_objects_consumption_budgets_resource_groups, null)
     consumption_budgets_subscriptions              = try(local.combined_objects_consumption_budgets_subscriptions, null)
-    combined_objects_consumption_budgets_cost_anomaly_alerts = try(local.combined_objects_consumption_budgets_cost_anomaly_alerts, null)
+    consumption_budgets_cost_anomaly_alerts        = try(local.combined_objects_consumption_budgets_cost_anomaly_alerts, null)
     container_registry                             = try(local.combined_objects_container_registry, null)
     cosmos_dbs                                     = try(local.combined_objects_cosmos_dbs, null)
     databricks_workspaces                          = try(local.combined_objects_databricks_workspaces, null)
