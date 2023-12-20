@@ -7,7 +7,7 @@ module "azuread_service_principals_membership" {
 
   azuread_service_principals = var.azuread_service_principals[try(each.value.lz_key, var.client_config.landingzone_key)]
   members                    = each.value
-  group_object_id            = var.azuread_groups[try(each.value.group_lz_key, var.client_config.landingzone_key)][var.group_key].id
+  group_object_id = var.group_id
 }
 
 module "managed_identities_membership" {
@@ -17,7 +17,7 @@ module "managed_identities_membership" {
   managed_identities = var.managed_identities[try(each.value.lz_key, var.client_config.landingzone_key)]
   members            = each.value
 
-  group_object_id = var.azuread_groups[try(each.value.group_lz_key, var.client_config.landingzone_key)][var.group_key].id
+  group_object_id = var.group_id
 }
 
 module "mssql_servers_membership" {
@@ -27,16 +27,16 @@ module "mssql_servers_membership" {
   mssql_servers = var.mssql_servers[try(each.value.lz_key, var.client_config.landingzone_key)]
   members       = each.value
 
-  group_object_id = var.azuread_groups[try(each.value.group_lz_key, var.client_config.landingzone_key)][var.group_key].id
+  group_object_id = var.group_id
 }
 
 module "azuread_groups_groups_membership" {
   source   = "./membership"
   for_each = try(var.settings.azuread_groups, {})
 
-  azuread_groups = var.azuread_groups[try(each.value.lz_key, var.client_config.landingzone_key)]
-  members                    = each.value
-  group_object_id            = var.azuread_groups[try(each.value.group_lz_key, var.client_config.landingzone_key)][var.group_key].id
+  azuread_groups  = var.azuread_groups[try(each.value.lz_key, var.client_config.landingzone_key)]
+  members         = each.value
+  group_object_id = var.group_id
 }
 
 module "membership_object_id" {
@@ -46,7 +46,7 @@ module "membership_object_id" {
     if key != "logged_in"
   }
 
-  group_object_id  = can(var.group_id) ? var.group_id : var.azuread_groups[try(var.settings.group_lz_key, var.client_config.landingzone_key)][var.group_key].id
+  group_object_id = var.group_id
   member_object_id = each.value
 }
 
@@ -57,6 +57,6 @@ module "membership_logged_in_object_id" {
     if key == "logged_in"
   }
 
-  group_object_id  = can(var.group_id) ? var.group_id : var.azuread_groups[try(var.settings.group_lz_key, var.client_config.landingzone_key)][var.group_key].id
+  group_object_id = var.group_id
   member_object_id = var.client_config.object_id
 }
