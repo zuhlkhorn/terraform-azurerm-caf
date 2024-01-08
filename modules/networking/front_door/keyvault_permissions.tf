@@ -10,7 +10,7 @@
 # #   "az ad sp create --id ad0e1c7e-6d38-4ba4-9efd-0bc77ba9f037"
 
 # data "azuread_service_principal" "front_door" {
-#   application_id = local.front_door_application_id
+#   client_id = local.front_door_application_id
 # }
 
 # module access_policy {
