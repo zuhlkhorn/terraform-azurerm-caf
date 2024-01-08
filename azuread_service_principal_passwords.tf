@@ -13,7 +13,7 @@ module "azuread_service_principal_passwords" {
   settings        = each.value
 
   service_principal_id             = can(each.value.azuread_service_principal.id) ? each.value.azuread_service_principal.id : local.combined_objects_azuread_service_principals[try(each.value.azuread_service_principal.lz_key, local.client_config.landingzone_key)][each.value.azuread_service_principal.key].id
-  service_principal_application_id = can(each.value.azuread_service_principal.application_id) ? each.value.azuread_service_principal.application_id : local.combined_objects_azuread_service_principals[try(each.value.azuread_service_principal.lz_key, local.client_config.landingzone_key)][each.value.azuread_service_principal.key].application_id
+  service_principal_client_id = can(each.value.azuread_service_principal.client_id) ? each.value.azuread_service_principal.client_id : local.combined_objects_azuread_service_principals[try(each.value.azuread_service_principal.lz_key, local.client_config.landingzone_key)][each.value.azuread_service_principal.key].client_id
 }
 
 output "azuread_service_principal_passwords" {
