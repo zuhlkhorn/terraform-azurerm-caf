@@ -66,7 +66,6 @@ locals {
     express_route_circuits                         = try(local.combined_objects_express_route_circuits, null)
     front_door                                     = try(local.combined_objects_front_door, null)
     front_door_waf_policies                        = try(local.combined_objects_front_door_waf_policies, null)
-    integration_service_environment                = try(local.combined_objects_integration_service_environment, null)
     iot_security_solution                          = try(local.combined_objects_iot_security_solution, null)
     iot_security_device_group                      = try(local.combined_objects_iot_security_device_group, null)
     iot_central_application                        = try(local.combined_objects_iot_central_application, null)

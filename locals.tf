@@ -227,7 +227,6 @@ locals {
   }, var.global_settings)
 
   logic_app = {
-    integration_service_environment = try(var.logic_app.integration_service_environment, {})
     logic_app_action_custom         = try(var.logic_app.logic_app_action_custom, {})
     logic_app_action_http           = try(var.logic_app.logic_app_action_http, {})
     logic_app_integration_account   = try(var.logic_app.logic_app_integration_account, {})

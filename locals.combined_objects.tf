@@ -84,7 +84,6 @@ locals {
   combined_objects_front_door_waf_policies                        = merge(tomap({ (local.client_config.landingzone_key) = module.front_door_waf_policies }), try(var.remote_objects.front_door_waf_policies, {}))
   combined_objects_function_apps                                  = merge(tomap({ (local.client_config.landingzone_key) = module.function_apps }), try(var.remote_objects.function_apps, {}))
   combined_objects_image_definitions                              = merge(tomap({ (local.client_config.landingzone_key) = module.image_definitions }), try(var.remote_objects.image_definitions, {}))
-  combined_objects_integration_service_environment                = merge(tomap({ (local.client_config.landingzone_key) = module.integration_service_environment }), try(var.remote_objects.integration_service_environment, {}))
   combined_objects_iot_central_application                        = merge(tomap({ (local.client_config.landingzone_key) = module.iot_central_application }), try(var.remote_objects.iot_central_application, {}))
   combined_objects_iot_security_device_group                      = merge(tomap({ (local.client_config.landingzone_key) = module.iot_security_device_group }), try(var.remote_objects.iot_security_device_group, {}))
   combined_objects_iot_security_solution                          = merge(tomap({ (local.client_config.landingzone_key) = module.iot_security_solution }), try(var.remote_objects.iot_security_solution, {}))
