@@ -6,11 +6,11 @@ output "tenant_id" {
 
 output "azuread_application" {
   value = {
-    id             = azuread_application.app.id
-    object_id      = azuread_application.app.object_id
-    application_id = azuread_application.app.application_id
+    id           = azuread_application.app.id
+    object_id    = azuread_application.app.object_id
+    client_id    = azuread_application.app.client_id
     #deprecated
-    #name           = azuread_application.app.name
+    #name        = azuread_application.app.name
   }
 
 }
