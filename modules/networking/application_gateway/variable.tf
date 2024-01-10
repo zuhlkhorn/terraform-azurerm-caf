@@ -21,9 +21,13 @@ variable "public_ip_addresses" {
   default = {}
 }
 variable "application_gateway_applications" {}
-variable "app_services" {
+variable "app_services_linux" {
   default = {}
 }
+# left for a future implementation, when needed
+# variable "app_services_windows" {
+#   default = {}
+# }
 variable "vnets" {
   default = {}
 }

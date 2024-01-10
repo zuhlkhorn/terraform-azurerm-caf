@@ -6,9 +6,13 @@ variable "client_config" {
   description = "Client configuration object (see module README.md)."
 }
 variable "application_gateway" {}
-variable "app_services" {
+variable "app_services_linux" {
   default = {}
 }
+# Left for a future implementation, when needed
+# variable "app_services_windows" {
+#   default = {}
+# }
 variable "keyvaults" {
   default = {}
 }
