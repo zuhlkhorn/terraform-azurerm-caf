@@ -47,7 +47,7 @@ module "eventgrid_event_subscription" {
 
   remote_objects = {
     all                    = local.remote_objects,
-    functions              = local.combined_objects_function_apps,
+    # functions              = local.combined_objects_function_apps,
     eventhubs              = local.combined_objects_event_hubs,
     servicebus_topic       = local.combined_objects_servicebus_topics,
     servicebus_queues      = local.combined_objects_servicebus_queues,
