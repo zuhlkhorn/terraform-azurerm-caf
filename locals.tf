@@ -227,7 +227,6 @@ locals {
   }, var.global_settings)
 
   logic_app = {
-    integration_service_environment = try(var.logic_app.integration_service_environment, {})
     logic_app_action_custom         = try(var.logic_app.logic_app_action_custom, {})
     logic_app_action_http           = try(var.logic_app.logic_app_action_http, {})
     logic_app_integration_account   = try(var.logic_app.logic_app_integration_account, {})
@@ -396,12 +395,13 @@ locals {
   webapp = {
     app_service_environments                       = try(var.webapp.app_service_environments, {})
     app_service_environments_v3                    = try(var.webapp.app_service_environments_v3, {})
-    app_service_plans                              = try(var.webapp.app_service_plans, {})
-    app_services                                   = try(var.webapp.app_services, {})
+    app_services_linux                             = try(var.webapp.app_services_linux, {})
+    # app_services_windows                           = try(var.webapp.app_services_windows, {})
     azurerm_application_insights                   = try(var.webapp.azurerm_application_insights, {})
     azurerm_application_insights_web_test          = try(var.webapp.azurerm_application_insights_web_test, {})
     azurerm_application_insights_standard_web_test = try(var.webapp.azurerm_application_insights_standard_web_test, {})
-    function_apps                                  = try(var.webapp.function_apps, {})
+    # function_apps                                  = try(var.webapp.function_apps, {})
+    service_plans                                   = try(var.webapp.service_plans, {})
     static_sites                                   = try(var.webapp.static_sites, {})
   }
 

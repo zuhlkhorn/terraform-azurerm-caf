@@ -7,10 +7,6 @@ output "id" {
   value = azuread_service_principal.app.id
 }
 
-output "application_id" {
-  value = azuread_service_principal.app.application_id
-}
-
 output "object_id" {
   value = azuread_service_principal.app.object_id
 }

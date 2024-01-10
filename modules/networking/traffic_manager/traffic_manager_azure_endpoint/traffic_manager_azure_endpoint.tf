@@ -7,9 +7,10 @@ resource "azurerm_traffic_manager_azure_endpoint" "azure_endpoint" {
   geo_mappings = try(var.settings.geo_mappings, null)
   target_resource_id = coalesce(
     try(var.remote_objects.public_ip_addresses, null),
-    try(var.remote_objects.app_services, null),
-    try(var.remote_objects.app_services_slot, null)
-
+    try(var.remote_objects.app_services_linux, null),
+    try(var.remote_objects.app_services_linux_slot, null),
+    # try(var.remote_objects.app_services_windows, null),
+    # try(var.remote_objects.app_services_windows_slot, null)
   )
 
   dynamic "custom_header" {

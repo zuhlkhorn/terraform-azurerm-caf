@@ -15,7 +15,7 @@ variable "service_principal_id" {
   description = "(Required) The ID of the Service Principal for which this password should be created."
 }
 
-variable "service_principal_application_id" {
+variable "service_principal_client_id" {
   description = "(Required) The App ID of the Application for which to create a Service Principal."
 }
 

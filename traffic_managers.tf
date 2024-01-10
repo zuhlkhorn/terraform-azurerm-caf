@@ -47,9 +47,11 @@ module "traffic_manager_azure_endpoint" {
   profile_id = local.combined_objects_traffic_manager_profile[try(each.value.traffic_manager_profile.lz_key, local.client_config.landingzone_key)][each.value.traffic_manager_profile.key].id
 
   remote_objects = {
-    public_ip_addresses = try(local.combined_objects_public_ip_addresses[try(each.value.public_ip_addresses.lz_key, local.client_config.landingzone_key)][each.value.public_ip_address.key].id, null)
-    app_services        = try(local.combined_objects_app_services[try(each.value.app_services.lz_key, local.client_config.landingzone_key)][each.value.app_services.key].id, null)
-    app_services_slot   = try(local.combined_objects_app_services[try(each.value.app_services.lz_key, local.client_config.landingzone_key)][each.value.app_services.key].slot[each.value.app_services.slot_key].id, null)
+    public_ip_addresses  = try(local.combined_objects_public_ip_addresses[try(each.value.public_ip_addresses.lz_key, local.client_config.landingzone_key)][each.value.public_ip_address.key].id, null)
+    app_services_linux        = try(local.combined_objects_app_services_linux[try(each.value.app_services_linux.lz_key, local.client_config.landingzone_key)][each.value.app_services_linux.key].id, null)
+    app_services_linux_slot   = try(local.combined_objects_app_services_linux[try(each.value.app_services_linux.lz_key, local.client_config.landingzone_key)][each.value.app_services_linux.key].slot[each.value.app_services_linux.slot_key].id, null)
+    # app_services_windows      = try(local.combined_objects_app_services_windows[try(each.value.app_services_windows.lz_key, local.client_config.landingzone_key)][each.value.app_services_windows.key].id, null)
+    # app_services_windows_slot = try(local.combined_objects_app_services_windows[try(each.value.app_services_windows.lz_key, local.client_config.landingzone_key)][each.value.app_services_windows.key].slot[each.value.app_services_windows.slot_key].id, null)
   }
 }
 
