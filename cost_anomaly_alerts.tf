@@ -1,5 +1,6 @@
 module "cost_anomaly_alerts" {
   source = "./modules/consumption_budget/cost_anomaly_alert"
+  depends_on = [ module.subscriptions ]
   for_each = try(local.shared_services.cost_anomaly_alerts, {})
 
   client_config   = local.client_config
