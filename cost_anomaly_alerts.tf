@@ -1,4 +1,4 @@
-module "consumption_budgets_cost_anomaly_alerts" {
+module "cost_anomaly_alerts" {
   source = "./modules/consumption_budget/cost_anomaly_alert"
   for_each = try(local.shared_services.cost_anomaly_alerts, {})
 
@@ -7,6 +7,6 @@ module "consumption_budgets_cost_anomaly_alerts" {
   settings        = each.value
 }
 
-output "consumption_budgets_cost_anomaly_alerts" {
-  value = module.consumption_budgets_cost_anomaly_alerts
+output "cost_anomaly_alerts" {
+  value = module.cost_anomaly_alerts
 }
