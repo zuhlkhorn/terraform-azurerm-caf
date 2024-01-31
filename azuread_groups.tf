@@ -40,7 +40,7 @@ module "azuread_groups_membership" {
   client_config              = local.client_config
   group_key                  = each.key
   settings                   = each.value
-  group_id                   = can(each.value.group_id) ? each.value.group_id : try(module.azuread_groups[each.key].object_id, local.combined_objects_azuread_groups[each.value.group_lz_key][each.key].id)
+  group_id                   = try(each.value.group_id, module.azuread_groups[each.key].object_id, local.combined_objects_azuread_groups[each.value.group_lz_key][each.key].id)
   azuread_groups             = local.combined_objects_azuread_groups
   azuread_service_principals = local.combined_objects_azuread_service_principals
   managed_identities         = local.combined_objects_managed_identities
