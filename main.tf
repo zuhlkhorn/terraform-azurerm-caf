@@ -5,7 +5,7 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "3.58.0"
       configuration_aliases = [
-        azurerm.vhub
+        azurerm.vhub, azurerm.launchpad
       ]
     }
     azuread = {
@@ -21,7 +21,7 @@ terraform {
       version = "1.2.26"
     }
     null = {
-      source = "hashicorp/null"
+      source  = "hashicorp/null"
       version = "3.1.1"
     }
     random = {
