@@ -16,6 +16,7 @@ resource "azurerm_virtual_network" "vnet" {
   resource_group_name = local.resource_group_name
   address_space       = var.settings.vnet.address_space
   tags                = local.tags
+  subnet              = [] # Explicitly set to empty to favour a separate declaration of subnet with azurerm_subnet
 
   dns_servers = flatten(
     concat(
