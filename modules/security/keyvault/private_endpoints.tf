@@ -6,8 +6,7 @@
 
 module "private_endpoint" {
   source   = "../../networking/private_endpoint"
-  for_each = { for key, val in lookup(var.settings, "private_endpoints", {}) : key => val if can(val.lz_key) == false }
-  # for_each = lookup(var.settings, "private_endpoints", {})
+  for_each = { for key, val in lookup(var.settings, "private_endpoints", {}) : key => val if var.client_config.subscription_id == var.client_config.tfstate_subscription_id }
 
   resource_id         = azurerm_key_vault.keyvault.id
   name                = each.value.name
@@ -24,7 +23,7 @@ module "private_endpoint" {
 
 module "private_endpoint_in_launchpad" {
   source   = "../../networking/private_endpoint"
-  for_each = { for key, val in lookup(var.settings, "private_endpoints", {}) : key => val if can(val.lz_key) }
+  for_each = { for key, val in lookup(var.settings, "private_endpoints", {}) : key => val if var.client_config.subscription_id != var.client_config.tfstate_subscription_id }
 
   providers = {
     azurerm = azurerm.launchpad

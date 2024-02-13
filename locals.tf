@@ -35,6 +35,7 @@ locals {
     object_id               = local.object_id
     subscription_id         = data.azurerm_client_config.current.subscription_id
     tenant_id               = data.azurerm_client_config.current.tenant_id
+    tfstate_subscription_id = var.tfstate_subscription_id
   } : map(var.client_config)
 
   cloud = merge({
@@ -227,14 +228,14 @@ locals {
   }, var.global_settings)
 
   logic_app = {
-    logic_app_action_custom         = try(var.logic_app.logic_app_action_custom, {})
-    logic_app_action_http           = try(var.logic_app.logic_app_action_http, {})
-    logic_app_integration_account   = try(var.logic_app.logic_app_integration_account, {})
-    logic_app_trigger_custom        = try(var.logic_app.logic_app_trigger_custom, {})
-    logic_app_trigger_http_request  = try(var.logic_app.logic_app_trigger_http_request, {})
-    logic_app_trigger_recurrence    = try(var.logic_app.logic_app_trigger_recurrence, {})
-    logic_app_workflow              = try(var.logic_app.logic_app_workflow, {})
-    logic_app_standard              = try(var.logic_app.logic_app_standard, {})
+    logic_app_action_custom        = try(var.logic_app.logic_app_action_custom, {})
+    logic_app_action_http          = try(var.logic_app.logic_app_action_http, {})
+    logic_app_integration_account  = try(var.logic_app.logic_app_integration_account, {})
+    logic_app_trigger_custom       = try(var.logic_app.logic_app_trigger_custom, {})
+    logic_app_trigger_http_request = try(var.logic_app.logic_app_trigger_http_request, {})
+    logic_app_trigger_recurrence   = try(var.logic_app.logic_app_trigger_recurrence, {})
+    logic_app_workflow             = try(var.logic_app.logic_app_workflow, {})
+    logic_app_standard             = try(var.logic_app.logic_app_standard, {})
   }
 
   cognitive_services = {
@@ -370,19 +371,19 @@ locals {
     cost_anomaly_alerts                       = try(var.shared_services.cost_anomaly_alerts, {})
     data_collection_endpoints                 = try(var.shared_services.data_collection_endpoints, {})
     # data_collection_rules                     = try(var.shared_services.data_collection_rules, {})
-    image_definitions                         = try(var.shared_services.image_definitions, {})
-    log_analytics_storage_insights            = try(var.shared_services.log_analytics_storage_insights, {})
-    monitor_autoscale_settings                = try(var.shared_services.monitor_autoscale_settings, {})
-    monitor_action_groups                     = try(var.shared_services.monitor_action_groups, {})
-    monitoring                                = try(var.shared_services.monitoring, {})
-    monitor_metric_alert                      = try(var.shared_services.monitor_metric_alert, {})
-    monitor_activity_log_alert                = try(var.shared_services.monitor_activity_log_alert, {})
-    monitor_private_link_scopes               = try(var.shared_services.monitor_private_link_scopes, {})
-    monitor_scheduled_query_rules_alerts_v2   = try(var.shared_services.monitor_scheduled_query_rules_alerts_v2, {})
-    packer_service_principal                  = try(var.shared_services.packer_service_principal, {})
-    packer_build                              = try(var.shared_services.packer_build, {})
-    recovery_vaults                           = try(var.shared_services.recovery_vaults, {})
-    shared_image_galleries                    = try(var.shared_services.shared_image_galleries, {})
+    image_definitions                       = try(var.shared_services.image_definitions, {})
+    log_analytics_storage_insights          = try(var.shared_services.log_analytics_storage_insights, {})
+    monitor_autoscale_settings              = try(var.shared_services.monitor_autoscale_settings, {})
+    monitor_action_groups                   = try(var.shared_services.monitor_action_groups, {})
+    monitoring                              = try(var.shared_services.monitoring, {})
+    monitor_metric_alert                    = try(var.shared_services.monitor_metric_alert, {})
+    monitor_activity_log_alert              = try(var.shared_services.monitor_activity_log_alert, {})
+    monitor_private_link_scopes             = try(var.shared_services.monitor_private_link_scopes, {})
+    monitor_scheduled_query_rules_alerts_v2 = try(var.shared_services.monitor_scheduled_query_rules_alerts_v2, {})
+    packer_service_principal                = try(var.shared_services.packer_service_principal, {})
+    packer_build                            = try(var.shared_services.packer_build, {})
+    recovery_vaults                         = try(var.shared_services.recovery_vaults, {})
+    shared_image_galleries                  = try(var.shared_services.shared_image_galleries, {})
   }
 
   storage = {
@@ -393,16 +394,16 @@ locals {
   }
 
   webapp = {
-    app_service_environments                       = try(var.webapp.app_service_environments, {})
-    app_service_environments_v3                    = try(var.webapp.app_service_environments_v3, {})
-    app_services_linux                             = try(var.webapp.app_services_linux, {})
+    app_service_environments    = try(var.webapp.app_service_environments, {})
+    app_service_environments_v3 = try(var.webapp.app_service_environments_v3, {})
+    app_services_linux          = try(var.webapp.app_services_linux, {})
     # app_services_windows                           = try(var.webapp.app_services_windows, {})
     azurerm_application_insights                   = try(var.webapp.azurerm_application_insights, {})
     azurerm_application_insights_web_test          = try(var.webapp.azurerm_application_insights_web_test, {})
     azurerm_application_insights_standard_web_test = try(var.webapp.azurerm_application_insights_standard_web_test, {})
     # function_apps                                  = try(var.webapp.function_apps, {})
-    service_plans                                   = try(var.webapp.service_plans, {})
-    static_sites                                   = try(var.webapp.static_sites, {})
+    service_plans = try(var.webapp.service_plans, {})
+    static_sites  = try(var.webapp.static_sites, {})
   }
 
   enable = {
@@ -451,6 +452,6 @@ locals {
     iot_security_device_group           = try(var.iot.iot_security_device_group, {})
     iot_central_application             = try(var.iot.iot_central_application, {})
   }
-  
-  powerbi_embedded = try(var.powerbi_embedded, {})  
+
+  powerbi_embedded = try(var.powerbi_embedded, {})
 }

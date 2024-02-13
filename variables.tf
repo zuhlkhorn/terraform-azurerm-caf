@@ -73,6 +73,11 @@ variable "tfstates" {
   default     = {}
 }
 
+variable "tfstate_subscription_id" {
+  description = "Terraform state subscription id"
+  default     = ""
+}
+
 variable "enable" {
   description = "Map of services defined in the configuration file you want to disable during a deployment."
   default = {
