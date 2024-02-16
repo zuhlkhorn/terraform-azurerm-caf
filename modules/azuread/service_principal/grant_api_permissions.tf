@@ -27,7 +27,6 @@ resource "null_resource" "grant_admin_consent" {
     resourceAppId  = each.value.resource_app_id
     appRoleId      = each.value.id
     principalId    = azuread_service_principal.app.object_id
-    application_id = azuread_service_principal.app.client_id
   }
 
   for_each = {
@@ -43,7 +42,6 @@ resource "null_resource" "grant_admin_consent" {
       resourceAppId  = self.triggers.resourceAppId
       appRoleId      = self.triggers.appRoleId
       principalId    = self.triggers.principalId
-      application_id = self.triggers.client_id
     }
   }
 }
