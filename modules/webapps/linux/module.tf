@@ -16,14 +16,14 @@ resource "azurerm_linux_web_app" "app_service_linux" {
   service_plan_id     = var.service_plan_id
   tags                = merge(local.tags, try(var.settings.tags, {}))
 
-  client_affinity_enabled                        = lookup(var.settings, "client_affinity_enabled", null)
-  client_certificate_enabled                     = lookup(var.settings, "client_certificate_enabled", null)
-  client_certificate_mode                        = lookup(var.settings, "client_certificate_mode", null)
-  client_certificate_exclusion_paths             = lookup(var.settings, "client_certificate_exclusion_paths", null)
-  enabled                                        = lookup(var.settings, "enabled", null)
-  https_only                                     = lookup(var.settings, "https_only", null)
-  virtual_network_subnet_id                      = lookup(var.settings, "virtual_network_subnet_id", null)
-  zip_deploy_file                                = lookup(var.settings, "zip_deploy_file", null)
+  client_affinity_enabled            = lookup(var.settings, "client_affinity_enabled", null)
+  client_certificate_enabled         = lookup(var.settings, "client_certificate_enabled", null)
+  client_certificate_mode            = lookup(var.settings, "client_certificate_mode", null)
+  client_certificate_exclusion_paths = lookup(var.settings, "client_certificate_exclusion_paths", null)
+  enabled                            = lookup(var.settings, "enabled", null)
+  https_only                         = lookup(var.settings, "https_only", null)
+  virtual_network_subnet_id          = lookup(var.settings, "virtual_network_subnet_id", null)
+  zip_deploy_file                    = lookup(var.settings, "zip_deploy_file", null)
   # Add when updating to azurerm version 3.85
   # ftp_publish_basic_authentication_enabled       = lookup(var.settings, "ftp_publish_basic_authentication_enabled", null)
   # public_network_access_enabled                  = lookup(var.settings, "public_network_access_enabled", null)
@@ -85,7 +85,7 @@ resource "azurerm_linux_web_app" "app_service_linux" {
           ruby_version        = lookup(var.settings.site_config.application_stack, "ruby_version", null)
         }
       }
-    
+
       dynamic "auto_heal_setting" {
         for_each = lookup(var.settings.site_config, "auto_heal_setting", {}) != {} ? [1] : []
 
@@ -94,7 +94,7 @@ resource "azurerm_linux_web_app" "app_service_linux" {
             for_each = lookup(var.settings.site_config.auto_heal_setting, "action", {}) != {} ? [1] : []
 
             content {
-              action_type = lookup(var.settings.site_config.auto_heal_setting.action, "action_type", null)
+              action_type                    = lookup(var.settings.site_config.auto_heal_setting.action, "action_type", null)
               minimum_process_execution_time = lookup(var.settings.site_config.auto_heal_setting.action, "minimum_process_execution_time", null)
             }
           }
@@ -104,7 +104,7 @@ resource "azurerm_linux_web_app" "app_service_linux" {
             content {
               dynamic "requests" {
                 for_each = lookup(var.settings.site_config.auto_heal_setting.trigger, "requests", {}) != {} ? [1] : []
-                
+
                 content {
                   count    = lookup(var.settings.site_config.auto_heal_setting.trigger.requests, "count", null)
                   interval = lookup(var.settings.site_config.auto_heal_setting.trigger.requests, "interval", null)
@@ -113,7 +113,7 @@ resource "azurerm_linux_web_app" "app_service_linux" {
 
               dynamic "slow_request" {
                 for_each = try(var.settings.site_config.auto_heal_setting.trigger.slow_request, {})
-                
+
                 content {
                   count      = lookup(slow_request, "count", null)
                   interval   = lookup(slow_request, "interval", null)
@@ -124,14 +124,14 @@ resource "azurerm_linux_web_app" "app_service_linux" {
 
               dynamic "status_code" {
                 for_each = try(var.settings.site_config.auto_heal_setting.trigger.status_code, {})
-                
+
                 content {
                   count             = lookup(status_code, "count", null)
                   interval          = lookup(status_code, "interval", null)
                   status_code_range = lookup(status_code, "status_code_range", null)
                   path              = lookup(status_code, "path", null)
                   sub_status        = lookup(status_code, "sub_status", null)
-                  win32_status      = lookup(status_code, "win32_status", null)
+                  win32_status_code = lookup(status_code, "win32_status_code", null)
                 }
               }
             }
@@ -301,19 +301,19 @@ resource "azurerm_linux_web_app" "app_service_linux" {
         for_each = lookup(var.settings.auth_settings_v2, "login", {}) != {} ? [1] : []
 
         content {
-          logout_endpoint = lookup(var.settings.auth_settings_v2.login, "logout_endpoint", null)
-          token_store_enabled = lookup(var.settings.auth_settings_v2.login, "token_store_enabled", null)
-          token_refresh_extension_time = lookup(var.settings.auth_settings_v2.login, "token_refresh_extension_time", null)
-          token_store_path = lookup(var.settings.auth_settings_v2.login, "token_store_path", null)
-          token_store_sas_setting_name = lookup(var.settings.auth_settings_v2.login, "token_store_sas_setting_name", null)
+          logout_endpoint                   = lookup(var.settings.auth_settings_v2.login, "logout_endpoint", null)
+          token_store_enabled               = lookup(var.settings.auth_settings_v2.login, "token_store_enabled", null)
+          token_refresh_extension_time      = lookup(var.settings.auth_settings_v2.login, "token_refresh_extension_time", null)
+          token_store_path                  = lookup(var.settings.auth_settings_v2.login, "token_store_path", null)
+          token_store_sas_setting_name      = lookup(var.settings.auth_settings_v2.login, "token_store_sas_setting_name", null)
           preserve_url_fragments_for_logins = lookup(var.settings.auth_settings_v2.login, "preserve_url_fragments_for_logins", null)
-          allowed_external_redirect_urls = lookup(var.settings.auth_settings_v2.login, "allowed_external_redirect_urls", null)
-          cookie_expiration_convention = lookup(var.settings.auth_settings_v2.login, "cookie_expiration_convention", null)
-          cookie_expiration_time = lookup(var.settings.auth_settings_v2.login, "cookie_expiration_time", null)
-          validate_nonce = lookup(var.settings.auth_settings_v2.login, "validate_nonce", null)
-          nonce_expiration_time = lookup(var.settings.auth_settings_v2.login, "nonce_expiration_time", null)
+          allowed_external_redirect_urls    = lookup(var.settings.auth_settings_v2.login, "allowed_external_redirect_urls", null)
+          cookie_expiration_convention      = lookup(var.settings.auth_settings_v2.login, "cookie_expiration_convention", null)
+          cookie_expiration_time            = lookup(var.settings.auth_settings_v2.login, "cookie_expiration_time", null)
+          validate_nonce                    = lookup(var.settings.auth_settings_v2.login, "validate_nonce", null)
+          nonce_expiration_time             = lookup(var.settings.auth_settings_v2.login, "nonce_expiration_time", null)
         }
-      } 
+      }
       # Implement the following login methods when needed
       # apple_v2
       # active_directory_v2
@@ -365,7 +365,7 @@ resource "azurerm_linux_web_app" "app_service_linux" {
 
     content {
       detailed_error_messages = try(var.settings.logs.detailed_error_messages, null)
-      failed_request_tracing = try(var.settings.logs.failed_request_tracing, null)
+      failed_request_tracing  = try(var.settings.logs.failed_request_tracing, null)
 
       dynamic "application_logs" {
         for_each = lookup(var.settings.logs, "application_logs", {}) != {} ? [1] : []
