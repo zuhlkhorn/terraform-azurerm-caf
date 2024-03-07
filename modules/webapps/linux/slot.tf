@@ -3,19 +3,19 @@
 resource "azurerm_linux_web_app_slot" "slots" {
   for_each = var.slots
 
-  name                = each.value.name
-  app_service_id      = azurerm_linux_web_app.app_service_linux.id
-  service_plan_id     = var.service_plan_id
-  tags                = local.tags
+  name            = each.value.name
+  app_service_id  = azurerm_linux_web_app.app_service_linux.id
+  service_plan_id = var.service_plan_id
+  tags            = local.tags
 
-  client_affinity_enabled                        = lookup(var.settings, "client_affinity_enabled", null)
-  client_certificate_enabled                     = lookup(var.settings, "client_certificate_enabled", null)
-  client_certificate_mode                        = lookup(var.settings, "client_certificate_mode", null)
-  client_certificate_exclusion_paths             = lookup(var.settings, "client_certificate_exclusion_paths", null)
-  enabled                                        = lookup(var.settings, "enabled", null)
-  https_only                                     = lookup(var.settings, "https_only", null)
-  virtual_network_subnet_id                      = lookup(var.settings, "virtual_network_subnet_id", null)
-  zip_deploy_file                                = lookup(var.settings, "zip_deploy_file", null)
+  client_affinity_enabled            = lookup(var.settings, "client_affinity_enabled", null)
+  client_certificate_enabled         = lookup(var.settings, "client_certificate_enabled", null)
+  client_certificate_mode            = lookup(var.settings, "client_certificate_mode", null)
+  client_certificate_exclusion_paths = lookup(var.settings, "client_certificate_exclusion_paths", null)
+  enabled                            = lookup(var.settings, "enabled", null)
+  https_only                         = lookup(var.settings, "https_only", null)
+  virtual_network_subnet_id          = lookup(var.settings, "virtual_network_subnet_id", null)
+  zip_deploy_file                    = lookup(var.settings, "zip_deploy_file", null)
 
   key_vault_reference_identity_id = can(var.settings.key_vault_reference_identity.key) ? var.combined_objects.managed_identities[try(var.settings.identity.lz_key, var.client_config.landingzone_key)][var.settings.key_vault_reference_identity.key].id : try(var.settings.key_vault_reference_identity.id, null)
 
@@ -74,7 +74,7 @@ resource "azurerm_linux_web_app_slot" "slots" {
           ruby_version        = lookup(var.settings.site_config.application_stack, "ruby_version", null)
         }
       }
-    
+
       dynamic "auto_heal_setting" {
         for_each = lookup(var.settings.site_config, "auto_heal_setting", {}) != {} ? [1] : []
 
@@ -83,7 +83,7 @@ resource "azurerm_linux_web_app_slot" "slots" {
             for_each = lookup(var.settings.site_config.auto_heal_setting, "action", {}) != {} ? [1] : []
 
             content {
-              action_type = lookup(var.settings.site_config.auto_heal_setting.action, "action_type", null)
+              action_type                    = lookup(var.settings.site_config.auto_heal_setting.action, "action_type", null)
               minimum_process_execution_time = lookup(var.settings.site_config.auto_heal_setting.action, "minimum_process_execution_time", null)
             }
           }
@@ -93,7 +93,7 @@ resource "azurerm_linux_web_app_slot" "slots" {
             content {
               dynamic "requests" {
                 for_each = lookup(var.settings.site_config.auto_heal_setting.trigger, "requests", {}) != {} ? [1] : []
-                
+
                 content {
                   count    = lookup(var.settings.site_config.auto_heal_setting.trigger.requests, "count", null)
                   interval = lookup(var.settings.site_config.auto_heal_setting.trigger.requests, "interval", null)
@@ -102,7 +102,7 @@ resource "azurerm_linux_web_app_slot" "slots" {
 
               dynamic "slow_request" {
                 for_each = try(var.settings.site_config.auto_heal_setting.trigger.slow_request, {})
-                
+
                 content {
                   count      = lookup(slow_request, "count", null)
                   interval   = lookup(slow_request, "interval", null)
@@ -113,14 +113,14 @@ resource "azurerm_linux_web_app_slot" "slots" {
 
               dynamic "status_code" {
                 for_each = try(var.settings.site_config.auto_heal_setting.trigger.status_code, {})
-                
+
                 content {
                   count             = lookup(status_code, "count", null)
                   interval          = lookup(status_code, "interval", null)
                   status_code_range = lookup(status_code, "status_code_range", null)
                   path              = lookup(status_code, "path", null)
                   sub_status        = lookup(status_code, "sub_status", null)
-                  win32_status      = lookup(status_code, "win32_status", null)
+                  win32_status_code = lookup(status_code, "win32_status_code", null)
                 }
               }
             }
