@@ -3,6 +3,10 @@ module "storage_accounts" {
   source   = "./modules/storage_account"
   for_each = var.storage_accounts
 
+  providers = {
+    azurerm.launchpad = azurerm.launchpad
+  }
+
   client_config             = local.client_config
   diagnostic_profiles       = try(each.value.diagnostic_profiles, {})
   diagnostic_profiles_blob  = try(each.value.diagnostic_profiles_blob, {})
@@ -21,6 +25,7 @@ module "storage_accounts" {
   virtual_subnets           = local.combined_objects_virtual_subnets
 
   base_tags           = local.global_settings.inherit_tags
+  resource_groups     = local.combined_objects_resource_groups
   resource_group      = local.combined_objects_resource_groups[try(each.value.resource_group.lz_key, local.client_config.landingzone_key)][try(each.value.resource_group_key, each.value.resource_group.key)]
   resource_group_name = can(each.value.resource_group.name) || can(each.value.resource_group_name) ? try(each.value.resource_group.name, each.value.resource_group_name) : null
   location            = try(local.global_settings.regions[each.value.region], null)
