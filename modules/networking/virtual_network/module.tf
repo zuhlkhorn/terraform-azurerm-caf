@@ -98,6 +98,18 @@ resource "azurerm_subnet_route_table_association" "rt" {
   route_table_id = var.route_tables[each.value.route_table_key].id
 }
 
+# Associate a route table ID to the subnet. Only works if the route table is created in the same Azure location and subscription as the subnets
+# Usefule when referencing an existing route table created in another level but same subscription.
+resource "azurerm_subnet_route_table_association" "rt_with_id" {
+  for_each = {
+    for key, subnet in merge(lookup(var.settings, "subnets", {}), lookup(var.settings, "specialsubnets", {})) : key => subnet
+    if try(subnet.route_table_id, null) != null
+  }
+
+  subnet_id      = coalesce(lookup(module.subnets, each.key, null), lookup(module.special_subnets, each.key, null)).id
+  route_table_id = each.value.route_table_id
+}
+
 resource "azurerm_subnet_network_security_group_association" "nsg_vnet_association" {
   for_each = {
     for key, value in try(var.settings.subnets, {}) : key => value
