@@ -54,10 +54,11 @@ module "networking" {
   # Does not support legacy load_balancers. Prefer lb
   #
   remote_dns = {
-    azurerm_firewall  = try(var.remote_objects.azurerm_firewalls, {})
-    azurerm_firewalls = try(var.remote_objects.azurerm_firewalls, {})
-    virtual_machines  = try(var.remote_objects.virtual_machines, {})
-    lb                = try(var.remote_objects.lb, {})
+    azurerm_firewall                       = try(var.remote_objects.azurerm_firewalls, {})
+    azurerm_firewalls                      = try(var.remote_objects.azurerm_firewalls, {})
+    virtual_machines                       = try(var.remote_objects.virtual_machines, {})
+    lb                                     = try(var.remote_objects.lb, {})
+    private_dns_resolver_inbound_endpoints = try(var.remote_objects.private_dns_resolver_inbound_endpoints, {})
   }
 }
 
