@@ -32,6 +32,8 @@ module "azurerm_virtual_hub_route_table_route" {
 
   remote_objects = {
     azurerm_firewall = local.combined_objects_azurerm_firewalls
+    virtual_hub_connection  = local.combined_objects_virtual_hub_connections
+    virtual_hub_connections = local.combined_objects_virtual_hub_connections
   }
 
   route_table_id = can(each.value.route_table.name) || can(each.value.route_table.id) ? try(each.value.route_table.id, format("%s/hubRouteTables/%s", local.combined_objects_virtual_hubs[try(each.value.virtual_hub.lz_key, local.client_config.landingzone_key)][each.value.virtual_hub.key].id, each.value.route_table.name)) : format("%s/hubRouteTables/%s", local.combined_objects_virtual_hub_route_tables[try(each.value.route_table.lz_key, local.client_config.landingzone_key)][each.value.route_table.key].id)
