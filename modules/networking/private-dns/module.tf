@@ -2,7 +2,13 @@
 resource "azurerm_private_dns_zone" "private_dns" {
   name                = var.name
   resource_group_name = local.resource_group_name
-  tags                = local.tags
+  lifecycle {
+    ignore_changes = [
+      tags
+    ]
+  }
+  #https://github.com/hashicorp/terraform-provider-azurerm/issues/11032
+  #tags                = local.tags  
 }
 
 
