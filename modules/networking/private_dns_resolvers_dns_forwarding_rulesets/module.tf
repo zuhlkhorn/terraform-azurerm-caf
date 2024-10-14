@@ -9,12 +9,15 @@ data "azurecaf_name" "pvtdnsrfrs" {
 
 }
 
+data "azurerm_resource_group" "parent" {
+  name = local.resource_group_name
+}
 
 resource "azurerm_private_dns_resolver_dns_forwarding_ruleset" "pvt_dns_resolver_forwarding_ruleset" {
   name                                       = data.azurecaf_name.pvtdnsrfrs.result
   resource_group_name                        = local.resource_group_name
   location                                   = local.location
-  tags                                       = merge(local.tags, try(var.settings.tags, null))
+  tags                                       = var.inherit_tags ? merge(try(var.settings.tags, {}), local.tags, data.azurerm_resource_group.parent.tags) : try(var.settings.tags, {})
   private_dns_resolver_outbound_endpoint_ids = toset(var.outbound_endpoint_ids)
 
   lifecycle {
