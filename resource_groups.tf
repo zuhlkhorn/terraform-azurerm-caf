@@ -9,9 +9,8 @@ module "resource_groups" {
   resource_group_name = each.value.name
   settings            = each.value
   global_settings     = local.global_settings
-  tags                = var.tags
+  tags                = local.global_settings.inherit_tags ? merge(var.tags, data.azurerm_subscription.primary.tags) : var.tags
 }
-
 
 module "resource_group_reused" {
   depends_on = [module.resource_groups]
