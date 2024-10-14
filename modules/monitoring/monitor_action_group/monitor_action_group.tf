@@ -8,11 +8,15 @@ resource "azurecaf_name" "this_name" {
   use_slug      = var.global_settings.use_slug
 }
 
+data "azurerm_resource_group" "parent" {
+  name = var.resource_group_name
+}
+
 resource "azurerm_monitor_action_group" "this" {
   name                = azurecaf_name.this_name.result
   resource_group_name = var.resource_group_name
   short_name          = var.settings.shortname
-  tags                = try(var.settings.tags, {})
+  tags                = var.global_settings.inherit_tags ? merge(try(var.settings.tags, {}), data.azurerm_resource_group.parent.tags) : try(var.settings.tags, {})
 
   dynamic "arm_role_receiver" {
     for_each = try(var.settings.arm_role_alert, {})
