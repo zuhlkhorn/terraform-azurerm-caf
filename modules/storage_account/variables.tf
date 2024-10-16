@@ -1,6 +1,10 @@
 variable "global_settings" {
   description = "Global settings object (see module README.md)"
 }
+variable "launchpad_inherited_tags" {
+  default     = {}
+  description = "tags of launchpad subscription needed for inheritance on private endpoints in launchpad"
+}
 variable "client_config" {
   description = "Client configuration object (see module README.md)."
 }

@@ -37,6 +37,9 @@ provider "azapi" {
 }
 
 data "azurerm_subscription" "primary" {}
+data "azurerm_subscription" "launchpad" {
+  provider = azurerm.launchpad
+}
 data "azurerm_client_config" "current" {}
 data "azuread_client_config" "current" {}
 
