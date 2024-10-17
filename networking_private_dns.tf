@@ -28,7 +28,7 @@ output "private_dns" {
 module "private_dns_vnet_links_v1" {
   source = "./modules/networking/private_dns_vnet_link_v1"
   for_each = {
-    for key, value in local.networking.private_dns_vnet_links : key => merge(value, { tags = try(local.global_settings.inherit_tags, false) ? data.azurerm_subscription.primary.tags : {} })
+    for key, value in local.networking.private_dns_vnet_links : key => value
     if try(value.version, "") == "v1"
   }
   depends_on = [module.private_dns]
