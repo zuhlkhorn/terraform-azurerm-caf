@@ -25,6 +25,7 @@ resource "azurerm_express_route_connection" "erc" {
     for_each = can(var.settings.routing) ? [1] : []
 
     content {
+      outbound_route_map_id     = var.settings.routing.outbound_route_map_id
       associated_route_table_id = local.associated_route_table.id
 
       dynamic "propagated_route_table" {
@@ -43,7 +44,7 @@ resource "azurerm_express_route_connection" "erc" {
 
 locals {
   express_route_circuit = {
-    name = try(var.express_route_circuits[var.settings.circuit.lz_key][var.settings.circuit.key].name, ""),
+    name                = try(var.express_route_circuits[var.settings.circuit.lz_key][var.settings.circuit.key].name, ""),
     resource_group_name = try(var.express_route_circuits[var.settings.circuit.lz_key][var.settings.circuit.key].resource_group_name, ""),
   }
 
@@ -77,7 +78,7 @@ locals {
           [
             for key in try(var.settings.propagated_route_tables.keys, []) : [
               format("%s/hubRouteTables/%s", var.virtual_hub_id, key)
-             ] if contains(tolist(["defaultRouteTable", "noneRouteTable"]), key) == true
+            ] if contains(tolist(["defaultRouteTable", "noneRouteTable"]), key) == true
           ]
         )
       ]
