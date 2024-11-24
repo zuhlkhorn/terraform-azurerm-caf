@@ -8,7 +8,7 @@ resource "azurecaf_name" "evhub" {
   use_slug      = var.global_settings.use_slug
 }
 
-# Last reviewed :  AzureRM version 2.64.0
+# Last reviewed :  AzureRM version 3.93.0
 # Ref : https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_authorization_rule
 
 resource "azurerm_eventhub" "evhub" {
