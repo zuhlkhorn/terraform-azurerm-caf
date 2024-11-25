@@ -8,7 +8,7 @@ resource "azurecaf_name" "evhcg_name" {
   use_slug      = var.global_settings.use_slug
 }
 
-# Last reviewed :  AzureRM version 2.64.0
+# Last reviewed :  AzureRM version 3.93.0
 # Ref : https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_consumer_group
 
 resource "azurerm_eventhub_consumer_group" "evhcg" {
