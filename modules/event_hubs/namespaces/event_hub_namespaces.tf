@@ -44,10 +44,10 @@ resource "azurerm_eventhub_namespace" "evh" {
       }
 
       dynamic "ip_rule" {
-        for_each = try(var.settings.network_rulesets.ip_rule, {})
+        for_each = toset(try(var.settings.network_rulesets.ip_rules, []))
         content {
-          ip_mask = ip_rule.value.ip_mask
-          action  = try(ip_rule.value.action, null)
+          ip_mask = ip_rule.key
+          action  = "Allow" # Only 'Allow' is a possible value
         }
       }
     }
