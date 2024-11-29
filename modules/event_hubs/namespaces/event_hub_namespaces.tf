@@ -36,7 +36,7 @@ resource "azurerm_eventhub_namespace" "evh" {
       public_network_access_enabled  = try(network_rulesets.value.public_network_access_enabled, null)
 
       dynamic "virtual_network_rule" {
-        for_each = try(var.settings.network_rulesets.virtual_network_rule, {})
+        for_each = try(network_rulesets.value.virtual_network_rule, {})
         content {
           subnet_id                                       = virtual_network_rule.value.subnet_id
           ignore_missing_virtual_network_service_endpoint = try(virtual_network_rule.value.ignore_missing_virtual_network_service_endpoint, null)
@@ -44,7 +44,7 @@ resource "azurerm_eventhub_namespace" "evh" {
       }
 
       dynamic "ip_rule" {
-        for_each = toset(try(var.settings.network_rulesets.ip_rules, []))
+        for_each = toset(try(network_rulesets.value.ip_rules, []))
         content {
           ip_mask = ip_rule.key
           action  = "Allow" # Only 'Allow' is a possible value
